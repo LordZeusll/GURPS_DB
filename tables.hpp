@@ -22,10 +22,10 @@ struct EvolutionEntry {
   std::string type;
   double temp;
   double lMin;
-  std::optional<double> lMax;
-  std::optional<double> mSpan;
-  std::optional<double> sSpan;
-  std::optional<double> gSpan;
+  double lMax;
+  double mSpan;
+  double sSpan;
+  double gSpan;
 };
 
 inline std::map<int, std::vector<MassEntry>> stellarMassTable = {
@@ -69,7 +69,7 @@ inline std::map<int, AgeEntry> stellarAgeTable = {
     {15, {0.1, 0.3, 0.05}}, {16, {0.1, 0.3, 0.05}}, {17, {0.1, 0.3, 0.05}},
     {18, {0.1, 0.3, 0.05}}};
 
-inline std::map<double, EvolutionEntry> stellarEvolutionTable = {
+inline std::map<double, EvolutionEntry> evolutionTable = {
     {0.1, {"M7", 3100, 0.0012}},
     {0.15, {"M6", 3200, 0.0036}},
     {0.20, {"M5", 3200, 0.0079}},

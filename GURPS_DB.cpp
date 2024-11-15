@@ -17,6 +17,8 @@ class Star {
  public:
   string name;
   double mass;
+  double luminosity;
+  int temperature;
 };
 
 class System {
@@ -104,7 +106,20 @@ void systemAge(System &system) {
   system.age = it.baseAge + (it.stepA * secondRoll) + (it.stepB * thirdRoll);
 }
 
-void stellarCharacteristics(System &system) {}
+void stellarCharacteristics(System &system) {
+  for (int i{}; i < system.numberOfStars; i++) {
+    auto star = system.stars[i];
+    if (star.mass < 0.45) {
+    } else if (star.mass <= evolutionTable[star.mass].mSpan) {
+    } else if (star.mass <= evolutionTable[star.mass].mSpan +
+                                evolutionTable[star.mass].sSpan) {
+    } else if (star.mass <= evolutionTable[star.mass].mSpan +
+                                evolutionTable[star.mass].sSpan +
+                                evolutionTable[star.mass].gSpan) {
+    } else {
+    }
+  }
+}
 
 void createSystem() {
   System system;
@@ -115,6 +130,7 @@ void createSystem() {
 
   starMasses(system);
   systemAge(system);
+  stellarCharacteristics(system);
 
   // Step 17: Stellar Characteristics
 }
