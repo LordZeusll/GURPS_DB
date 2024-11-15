@@ -17,13 +17,13 @@ class Star {
  public:
   string name;
   double mass;
-  double age;
 };
 
 class System {
  public:
   int numberOfStars;
   vector<Star> stars;
+  double age;
 };
 
 double findMass(int firstRoll, int secondRoll) {
@@ -95,16 +95,13 @@ void starMasses(System &system) {
   }
 }
 
-void starAge(System &system) {
+void systemAge(System &system) {
   int firstRoll, secondRoll, thirdRoll;
-  for (int i{}; i < system.numberOfStars; ++i) {
-    firstRoll = rollDice(3);
-    secondRoll = rollDice() - 1;
-    thirdRoll = rollDice() - 1;
-    auto it = stellarAgeTable[firstRoll];
-    system.stars[i].age =
-        it.baseAge + (it.stepA * secondRoll) + (it.stepB * thirdRoll);
-  }
+  firstRoll = rollDice(3);
+  secondRoll = rollDice() - 1;
+  thirdRoll = rollDice() - 1;
+  auto it = stellarAgeTable[firstRoll];
+  system.age = it.baseAge + (it.stepA * secondRoll) + (it.stepB * thirdRoll);
 }
 
 void stellarCharacteristics(System &system) {}
@@ -117,7 +114,7 @@ void createSystem() {
   system.numberOfStars = firstRoll < 11 ? 1 : firstRoll < 16 ? 2 : 3;
 
   starMasses(system);
-  starAge(system);
+  systemAge(system);
 
   // Step 17: Stellar Characteristics
 }
