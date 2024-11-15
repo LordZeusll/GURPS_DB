@@ -28,7 +28,7 @@ struct EvolutionEntry {
   std::optional<double> gSpan;
 };
 
-inline const std::map<int, std::vector<MassEntry>> stellarMassTable = {
+inline std::map<int, std::vector<MassEntry>> stellarMassTable = {
     {3, {{3, 10, 2.00}, {11, 18, 1.90}}},
     {4, {{3, 8, 1.80}, {9, 11, 1.70}, {12, 18, 1.60}}},
     {5, {{3, 7, 1.50}, {8, 10, 1.45}, {11, 12, 1.40}, {13, 18, 1.35}}},
@@ -61,7 +61,7 @@ inline const std::map<int, std::vector<MassEntry>> stellarMassTable = {
     {17, {{3, 18, 0.10}, {15, 18, 0.10}}},
     {18, {{3, 18, 0.10}, {15, 18, 0.10}}}};
 
-inline const std::map<int, AgeEntry> stellarAgeTable = {
+inline std::map<int, AgeEntry> stellarAgeTable = {
     {3, {0.0, 0.0, 0.0}},   {4, {0.0, 0.0, 0.0}},   {5, {0.0, 0.0, 0.0}},
     {6, {0.0, 0.0, 0.0}},   {7, {0.1, 0.3, 0.05}},  {8, {0.1, 0.3, 0.05}},
     {9, {0.1, 0.3, 0.05}},  {10, {0.1, 0.3, 0.05}}, {11, {0.1, 0.3, 0.05}},
@@ -69,7 +69,7 @@ inline const std::map<int, AgeEntry> stellarAgeTable = {
     {15, {0.1, 0.3, 0.05}}, {16, {0.1, 0.3, 0.05}}, {17, {0.1, 0.3, 0.05}},
     {18, {0.1, 0.3, 0.05}}};
 
-inline const std::map<double, EvolutionEntry> stellarEvolutionTable = {
+inline std::map<double, EvolutionEntry> stellarEvolutionTable = {
     {0.1, {"M7", 3100, 0.0012}},
     {0.15, {"M6", 3200, 0.0036}},
     {0.20, {"M5", 3200, 0.0079}},

@@ -107,6 +107,8 @@ void starAge(System &system) {
   }
 }
 
+void stellarCharacteristics(System &system) {}
+
 void createSystem() {
   System system;
   int firstRoll;
