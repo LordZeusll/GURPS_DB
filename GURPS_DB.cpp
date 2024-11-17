@@ -1,4 +1,5 @@
 #include <cmath>
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <random>
@@ -19,6 +20,8 @@ class Star {
   double mass;
   double luminosity;
   int temperature;
+  string spectralType;
+  string stage;
 };
 
 class System {
@@ -107,16 +110,33 @@ void systemAge(System &system) {
 }
 
 void stellarCharacteristics(System &system) {
-  for (int i{}; i < system.numberOfStars; i++) {
-    auto star = system.stars[i];
+  for (auto &star : system.stars) {
+    auto evolutionEntry = evolutionTable[star.mass];
+    star.spectralType = evolutionEntry.type;
+    star.temperature = evolutionEntry.temp;
     if (star.mass < 0.45) {
-    } else if (star.mass <= evolutionTable[star.mass].mSpan) {
-    } else if (star.mass <= evolutionTable[star.mass].mSpan +
-                                evolutionTable[star.mass].sSpan) {
-    } else if (star.mass <= evolutionTable[star.mass].mSpan +
-                                evolutionTable[star.mass].sSpan +
-                                evolutionTable[star.mass].gSpan) {
+      star.luminosity = evolutionEntry.lMin;
+      star.stage = "main";
+    } else if (star.mass <= evolutionEntry.mSpan) {
+      star.luminosity = evolutionEntry.lMin +
+                        abs((system.age / evolutionEntry.mSpan) *
+                            (evolutionEntry.lMax - evolutionEntry.lMin));
+      star.stage = "main";
+    } else if (star.mass <= evolutionEntry.mSpan + evolutionEntry.sSpan) {
+      star.luminosity = evolutionEntry.lMax;
+      star.temperature =
+          star.temperature -
+          abs((system.age / evolutionEntry.sSpan) * (star.temperature - 4800));
+      star.stage = "subgiant";
+      // !WRITE AN ALGORITHM FOR FINDING APPROPRIATE SPECTRAL TYPE!
+    } else if (star.mass <= evolutionEntry.mSpan + evolutionEntry.sSpan +
+                                evolutionEntry.gSpan) {
+      star.temperature = (rollDice(2) - 2) * 200 + 3000;
+      star.luminosity = evolutionEntry.lMax * 25;
+      star.stage = "giant";
     } else {
+      star.mass = (rollDice(2) - 2) * 0.05 + 0.9;
+      star.luminosity = 0.0005;
     }
   }
 }
