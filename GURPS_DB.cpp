@@ -6,9 +6,13 @@
 #include <string>
 #include <vector>
 
+#include "pcg_random.hpp"
 #include "tables.hpp"
 
 using namespace std;
+
+pcg_extras::seed_seq_from<std::random_device> gen;
+pcg32 rng(gen);
 
 struct Formulas {};
 
@@ -48,18 +52,9 @@ bool fileExists(string fileName) {
   return file.good();
 }
 
-int rollDice() {
-  random_device rd;
-  mt19937 gen(rd());
-  uniform_int_distribution<> dis(1, 6);
-  return dis(gen);
-}
-
-int rollDice(int rolls) {
+int rollDice(int rolls = 1) {
   int total{};
-  random_device rd;
-  mt19937 gen(rd());
-  uniform_int_distribution<> dis(1, 6);
+  uniform_int_distribution<int> dis(1, 6);
   for (int i{}; i < rolls; ++i) {
     total += dis(gen);
   }
@@ -137,6 +132,7 @@ void stellarCharacteristics(System &system) {
     } else {
       star.mass = (rollDice(2) - 2) * 0.05 + 0.9;
       star.luminosity = 0.0005;
+      star.stage = "dwarf";
     }
   }
 }
